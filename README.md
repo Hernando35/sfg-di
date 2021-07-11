@@ -1,2 +1,2 @@
 # sfg-di
-Dependency Injection examples with SpringFramwwork
+Dependency Injection examples with SpringFramework
