@@ -1,16 +1,34 @@
 package com.hernandoguru.sfgdi.Config;
 
 
+import com.hernandoguru.pets.DogPetService;
+import com.hernandoguru.pets.PetService;
+import com.hernandoguru.pets.PetsFactory;
 import com.hernandoguru.sfgdi.Repositories.EnglishGreetingRepository;
 import com.hernandoguru.sfgdi.Repositories.EnglishGreetingRepositoryImpl;
 import com.hernandoguru.sfgdi.Services.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.*;
 
+@ImportResource("classpath:sfgdi-config.xml")
 @Configuration
 public class GreetingServiceConfig {
+
+    @Bean
+    PetsFactory petsFactory(){
+        return new PetsFactory();
+    }
+
+    @Profile({"dog", "default"})
+    @Bean
+    PetService dogPetService(PetsFactory petsFactory){
+        return petsFactory.getPetService( "dog" );
+    }
+
+    @Profile("cat")
+    @Bean
+    PetService catPetService(PetsFactory petsFactory){
+        return petsFactory.getPetService( "cat" );
+    }
 
     @Profile( {"ES","default"} )
     @Bean("i18nService")
@@ -33,11 +51,6 @@ public class GreetingServiceConfig {
     @Bean
     PrimaryGreetingsService primaryGreetingsService(){
          return new PrimaryGreetingsService();
-    }
-
-    @Bean
-    ConstructorGreetingsService constructorGreetingsService(){
-          return new ConstructorGreetingsService();
     }
 
     @Bean
