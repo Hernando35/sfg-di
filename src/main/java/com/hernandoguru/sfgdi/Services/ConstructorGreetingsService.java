@@ -1,8 +1,8 @@
 package com.hernandoguru.sfgdi.Services;
 
-import org.springframework.stereotype.Service;
 
 public class ConstructorGreetingsService implements ServiceCalling {
+    @Override
     public String getGreeting(){
         return "Hello worldgit ! - Constructor";
     }
